@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		#div1{
+		 background: red;
+		 width: 100px;
+		 height: 100px;
+		}
+	
+		</style>
+		<script>
+		/**
+		 * 鼠标滚轮事件
+		 * ie/chorme: onmousewheel
+		 * 获取滚轮值
+		 * event.wheelDelta
+		 * 
+		 * firefox:DOMMouseScorll 必须用addEventListener
+		 *  event.detail
+		 * 
+		 * return false阻止的是  obj.on事件名称=fn 所触发的默认行为
+			addEventListener绑定的事件需要通过event下面的preventDefault();
+		 * **/
+		
+		window.onload=function(){
+		
+		 var oDiv = document.getElementById('div1');
+		 oDiv.onmousewheel =moFn;
+		 oDiv.addEventListener('DOMMouseScroll',moFn,false);
+		 
+		 function moFn(e){
+		      var e=e||event;
+		      
+		      var abs=true;
+		      //兼容火狐
+		      if(e.wheelDelta ){
+		       abs=  e.wheelDelta>0?true:false;
+		      }else{
+		       abs=  e.detail>0?true:false;
+		      }
+		      if(abs){
+		       this.style.height= this.offsetHeight+10+'px';
+		      }else{
+		        this.style.height= this.offsetHeight-10+'px';
+		      }
+		      
+		      if(e.preventDefault){
+		           e.preventDefault();
+		      }
+		      return false;
+		 }
+		
+		
+		}
+		
+		</script>
+	</head>
+	<body>
+		<div id="div1"></div>
+	</body>
+</html>
